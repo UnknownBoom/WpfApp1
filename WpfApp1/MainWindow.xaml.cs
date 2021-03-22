@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -14,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfApp1.common;
 using WpfApp1.context;
 using WpfApp1.model;
 
@@ -70,7 +74,7 @@ namespace WpfApp1
         }
         UserContext db;
         RealtorContext realtorContext;
-
+        ObservableCollection<object> ol = new ObservableCollection<object>();
 
         public MainWindow()
         {
@@ -82,6 +86,9 @@ namespace WpfApp1
             realtorContext.Realtors.Load();
             userGrid.ItemsSource = db.Users.Local.ToBindingList();
             realtorGrid.ItemsSource = realtorContext.Realtors.Local.ToBindingList();
+          
+            leviGrid.ItemsSource = ol;
+
 
             this.Closing += MainWindow_Closing;
 
@@ -170,6 +177,30 @@ namespace WpfApp1
             }
             realtorContext.SaveChanges();
         }
+        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ol.Clear();
+          
+            ArrayList all = new ArrayList();
+            all.AddRange(db.Users.Local.ToList());
+            all.AddRange(realtorContext.Realtors.Local.ToList());
+            string fioSearch = name.Text.Trim().ToLower() + lastName.Text.Trim().ToLower() + patronymic.Text.Trim().ToLower();
+            foreach (var item in all) {
+                if (item != null) {
+                    if (item is IFIO) {
+                        string[] data = Levi.GetLeviData(lastName.Text, name.Text, patronymic.Text, (IFIO)item);
+                        if (Levi.LevenshteinDistance(data[0], data[1]) <= 3)
+                        {
+                            Console.WriteLine("start found -----------");
+                            Console.WriteLine(item);
+                            ol.Add(item);
+                        }
+                    }
 
+                }
+            }
+ 
+        }
     }
 }

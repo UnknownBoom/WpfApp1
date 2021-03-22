@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp1.model;
 
 namespace WpfApp1
 {
     [Table("usr")]
-    class User
+    class User :IFIO
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

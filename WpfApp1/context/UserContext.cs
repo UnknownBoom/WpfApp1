@@ -11,8 +11,6 @@ namespace WpfApp1
     class UserContext:DbContext
     {
         public DbSet<User> Users {get;set;}
-        public DbSet<Realtor> Realtors { get; set; }
-
         public UserContext() : base("test") { 
         }
     }

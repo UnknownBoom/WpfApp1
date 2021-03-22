@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace WpfApp1.model
 {
     [Table("realtor")]
-    class Realtor
+    class Realtor : IFIO
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

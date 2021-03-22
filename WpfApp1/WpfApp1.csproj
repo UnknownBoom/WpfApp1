@@ -62,7 +62,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="common\Levi.cs" />
     <Compile Include="context\RealtorContext.cs" />
+    <Compile Include="model\IFIO.cs" />
     <Compile Include="model\Realtor.cs" />
     <Compile Include="model\User.cs" />
     <Compile Include="context\UserContext.cs" />
