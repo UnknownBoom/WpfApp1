@@ -74,7 +74,7 @@ namespace WpfApp1
         }
         UserContext db;
         RealtorContext realtorContext;
-        ObservableCollection<object> ol = new ObservableCollection<object>();
+        ObservableCollection<IFIO> ol = new ObservableCollection<IFIO>();
 
         public MainWindow()
         {
@@ -192,9 +192,7 @@ namespace WpfApp1
                         string[] data = Levi.GetLeviData(lastName.Text, name.Text, patronymic.Text, (IFIO)item);
                         if (Levi.LevenshteinDistance(data[0], data[1]) <= 3)
                         {
-                            Console.WriteLine("start found -----------");
-                            Console.WriteLine(item);
-                            ol.Add(item);
+                            ol.Add(item as IFIO);
                         }
                     }
 
